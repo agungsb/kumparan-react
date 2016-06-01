@@ -3,10 +3,6 @@ if (!window.indexedDB) {
     window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
 }
 
-$(document).on('click', '#addBtn', function () {
-    console.log(db);
-});
-
 var customerData = [];
 const dbName = "company_db";
 const objectStoreName = "employees";
