@@ -59,7 +59,7 @@ request.onupgradeneeded = function (event) {
     };
 };
 
-var readAllRecords = function () {
+function readAllRecords() {
     var transaction = db.transaction([objectStoreName], "readwrite");
     var objectStore = transaction.objectStore(objectStoreName);
     var html = "";
@@ -88,7 +88,7 @@ var readAllRecords = function () {
     }
 }
 
-var readRecord = function () {
+function readRecord() {
     var transaction = db.transaction([objectStoreName]);
     var objectStore = transaction.objectStore(objectStoreName);
     var request = objectStore.get(pointedArrSsn[0].ssn);
@@ -102,7 +102,11 @@ var readRecord = function () {
     };
 }
 
-var addRecord = function (obj) {
+function tea() {
+    alert();
+}
+
+function addRecord(obj) {
     var transaction = db.transaction([objectStoreName], "readwrite");
     transaction.oncomplete = function (event) {
         console.log(event);
@@ -151,7 +155,7 @@ var addRecord = function (obj) {
     }
 }
 
-var deleteRecord = function () {
+function deleteRecord() {
     // It's important to descend array order first, so the rowIndex won't be screwed up
     pointedArrSsn.sort(function (a, b) {
         return parseInt(b.rowIndex) - parseInt(a.rowIndex);
@@ -250,59 +254,6 @@ var getCheckedBoxes = function () {
     }
     // Return the array if it is non-empty, or null
     return checkboxesChecked.length > 0 ? checkboxesChecked : null;
-}
-
-$(document).on('change', '#upload-foto', function (event) {
-    console.log(event);
-    var files = event.target.files; // FileList object
-    // console.log(files);
-
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
-        // console.log(f);
-        // Only process image files.
-        if (!f.type.match('image.*')) {
-            event.preventDefault();
-            continue;
-        }
-
-        var reader = new FileReader();
-
-        // Closure to capture the file information.
-        reader.onload = function (e) {
-            // // console.log(e);
-            // // console.log(reader.result);
-            generateImage(reader.result);
-        }
-
-        // Read in the image file as a data URL.
-        reader.readAsDataURL(f);
-    }
-});
-
-var generateImage = function (dataURL) {
-    var imageScale = 50;
-    var canvas = document.getElementById('myCanvas');
-    var context = canvas.getContext("2d");
-    var imageHeight = 300;
-    var imageWidth = 300;
-    var threshold = 50;
-    canvas.width = 200;
-    canvas.height = 200;
-    canvasWidth = canvas.width;
-    canvasHeight = canvas.height;
-
-    // load image from data url
-    var imageObj = new Image();
-    imageObj.onload = function () {
-        $('#canvasContainer').fadeIn();
-        var imageX = this.offsetLeft;
-        var imageY = this.offsetTop;
-        var imageWidth = this.width;
-        var imageHeight = this.height;
-        context.drawImage(this, 0, 0, imageWidth * (imageScale + threshold) / 100, imageHeight * (imageScale + threshold) / 100);
-    };
-    imageObj.src = dataURL;
 }
 
 $.fn.serializeObject = function () {

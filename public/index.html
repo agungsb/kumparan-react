@@ -11,18 +11,7 @@
   <script src="bower_components/react/react.js"></script>
   <script src="bower_components/react/react-dom.js"></script>
   <script src="bower_components/react-bootstrap/react-bootstrap.js"></script>
-  <script>
-    var Alert = ReactBootstrap.Alert;
-    var Modal = ReactBootstrap.Modal;
-    var Popover = ReactBootstrap.Popover;
-    var Tooltip = ReactBootstrap.Tooltip;
-    var Button = ReactBootstrap.Button;
-    var OverlayTrigger = ReactBootstrap.OverlayTrigger;
-    var FormGroup = ReactBootstrap.FormGroup;
-    var ControlLabel = ReactBootstrap.ControlLabel;
-    var FormControl = ReactBootstrap.FormControl;
-    var HelpBlock = ReactBootstrap.HelpBlock;
-  </script>
+  <script type="text/javascript" src="components/declarations.js"></script>
   <script src="js/browser.min.js"></script>
   <script src="js/jQuery-2.1.4.min.js"></script>
   <!--<script src="bootstrap/js/bootstrap.min.js"></script>-->
@@ -30,37 +19,10 @@
 </head>
 
 <body>
-  <div id="alertcomponent"></div>
-  <div class="col-xs-12 text-center">
-    <h1>Employees Control</h1>
-  </div>
-  <div class="col-xs-12 col-sm-3 col-md-2">
-    <div id="modalcomponent"></div>
-    <!--<button id="addBtn" class="btn btn-success form-control" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-plus"></i>&nbsp;Tambah</button>-->
-  </div>
-  <div class="col-xs-12 col-sm-3 col-md-2">
-    <button id="deleteBtn" class="btn btn-danger form-control"><i class="glyphicon glyphicon-remove"></i>&nbsp;Hapus</button>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-6 col-md-offset-2">
-    <div class="inner-addon right-addon">
-      <i class="glyphicon glyphicon-search"></i>
-      <input type="text" class="form-control" />
-    </div>
-  </div>
-  <div class="col-xs-12 margin-top-10">
-    <table id="mainTable" class="table table-responsive table-hover table-bordered">
-      <thead>
-        <th class="hide">Id</th>
-        <th>SSN</th>
-        <th>Nama</th>
-        <th>Email</th>
-        <th>Foto</th>
-        <th>Action</th>
-      </thead>
-      <tbody id="tbo"></tbody>
-    </table>
-  </div>
-  <script type="text/babel" src="components/alert.js"></script>
+  <!--<div id="alertcomponent"></div>-->
+  <div id="rootcomponent"></div>
+  <script type="text/babel" src="components/root.js"></script>
+  <!--<script type="text/babel" src="components/alert.js"></script>-->
   <script type="text/babel" src="components/modal-form.js"></script>
 </body>
 

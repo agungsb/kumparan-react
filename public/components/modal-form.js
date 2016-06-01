@@ -1,4 +1,8 @@
 const Example = React.createClass({
+    
+    componentDidMount() {
+        
+    },
 
     getInitialState() {
         return { showModal: false, ssn: '', nama: '', email: '', foto: '', hide: 'hide', disabled: true };
@@ -40,8 +44,9 @@ const Example = React.createClass({
 
     handleSubmit(e) {
         e.preventDefault();
+        window.tea();
         if ((this.state.ssn.length != 4) || (this.state.nama == '') || (this.state.email == '') || (this.state.foto == '')) {
-            alert("Mohon lengkapi form"); 
+            alert("Mohon lengkapi form");
             return;
         } else {
             var elements = ReactDOM.findDOMNode(this.refs.addform).elements;
@@ -107,6 +112,7 @@ const Example = React.createClass({
     },
 
     render() {
+        let hello = <Hello name="World"/>
         let popover = <Popover title="Standar" id="popover-modal">Ukuran 200x200 piksel</Popover>;
 
         return (
@@ -119,8 +125,9 @@ const Example = React.createClass({
                 </Button>
 
                 <Modal show={this.state.showModal} onHide={this.close}>
+                    <Hello name="Admin"/>
                     <Modal.Header closeButton>
-                        <Modal.Title>Tambah Karyawan</Modal.Title>
+                        <Modal.Title>Tambah Karyawan </Modal.Title>
                     </Modal.Header>
                     <form ref="addform" onSubmit={this.handleSubmit}>
                         <Modal.Body>

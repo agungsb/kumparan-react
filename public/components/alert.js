@@ -4,4 +4,4 @@ const alertInstance = (
   </Alert>
 );
 
-ReactDOM.render(alertInstance, document.getElementById('alertcomponent'));
+// ReactDOM.render(alertInstance, document.getElementById('alertcomponent'));
