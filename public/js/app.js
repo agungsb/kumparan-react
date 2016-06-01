@@ -59,7 +59,7 @@ request.onupgradeneeded = function (event) {
     };
 };
 
-function readAllRecords() {
+var readAllRecords = function () {
     var transaction = db.transaction([objectStoreName], "readwrite");
     var objectStore = transaction.objectStore(objectStoreName);
     var html = "";
@@ -88,7 +88,7 @@ function readAllRecords() {
     }
 }
 
-function readRecord() {
+var readRecord = function () {
     var transaction = db.transaction([objectStoreName]);
     var objectStore = transaction.objectStore(objectStoreName);
     var request = objectStore.get(pointedArrSsn[0].ssn);
@@ -102,11 +102,11 @@ function readRecord() {
     };
 }
 
-function tea() {
+function tea(){
     alert();
 }
 
-function addRecord(obj) {
+var addRecord = function (obj) {
     var transaction = db.transaction([objectStoreName], "readwrite");
     transaction.oncomplete = function (event) {
         console.log(event);
@@ -155,7 +155,7 @@ function addRecord(obj) {
     }
 }
 
-function deleteRecord() {
+var deleteRecord = function () {
     // It's important to descend array order first, so the rowIndex won't be screwed up
     pointedArrSsn.sort(function (a, b) {
         return parseInt(b.rowIndex) - parseInt(a.rowIndex);
