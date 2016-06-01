@@ -1,0 +1,12 @@
+{
+  "name": "kumparan-react",
+  "homepage": "https://github.com/agungsb/kumparan",
+  "authors": [
+    "agungsb <agung.surya@live.com>"
+  ],
+  "description": "ReactJS application for Kumparan's coding challenge",
+  "main": "public/index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true
+}
