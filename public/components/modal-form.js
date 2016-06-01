@@ -41,7 +41,7 @@ const Example = React.createClass({
     handleSubmit(e) {
         e.preventDefault();
         if ((this.state.ssn.length != 4) || (this.state.nama == '') || (this.state.email == '') || (this.state.foto == '')) {
-            alert("Mohon lengkapi form");
+            alert("Mohon lengkapi form"); 
             return;
         } else {
             var elements = ReactDOM.findDOMNode(this.refs.addform).elements;
