@@ -15,7 +15,7 @@ TableComponent = React.createClass({
   },
   searchRecords(e){
     // e.stopPropagation();
-    console.log(e);
+    // console.log(e);
     var code = (e.keyCode ? e.keyCode : e.which);
     // if(code == 13) { //Enter keycode
       this.setState({keyword: e.target.value});
