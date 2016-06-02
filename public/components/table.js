@@ -1,7 +1,7 @@
 TableComponent = React.createClass({
   displayName: "TableComponent",
   getInitialState() {
-    return { cols: ["SSN", "Nama", "Email", "Foto", "Action"], }
+    return { cols: ["SSN", "Nama", "Email", "Foto", "Dipilih"], }
   },
   handleClick(e) {
     var td = e.target.parentElement;
@@ -12,6 +12,9 @@ TableComponent = React.createClass({
   },
   deleteRecords(){  
     this.props.onDeleteRecords();
+  },
+  searchRecords(e){
+    this.props.onSearchRecords(e.target.value);
   },
   render: function () {
     let _self = this;
@@ -28,7 +31,7 @@ TableComponent = React.createClass({
         <div className="col-xs-12 col-sm-6 col-md-6 col-md-offset-2">
           <div className="inner-addon right-addon">
             <i className="glyphicon glyphicon-search"></i>
-            <input type="text" className="form-control" />
+            <input onChange={this.searchRecords} type="text" className="form-control" />
           </div>
         </div>
         <div className="col-xs-12 margin-top-10">
