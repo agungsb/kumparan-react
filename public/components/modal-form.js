@@ -49,19 +49,18 @@ ModalComponent = React.createClass({
             return;
         } else {
             let data = { "ssn": this.state.ssn, "nama": this.state.nama, "email": this.state.email, "foto": this.state.foto }
-            console.log(data);
+            // console.log(data);
             this.setState({ showModal: false, ssn: '', nama: '', email: '', foto: '', hide: 'hide' });
             this.onAddRecord(data);
         }
     },
 
     handleImage(event) {
-        console.log(event);
+        // console.log(event);
         this.setState({ 'hide': '' });
-        var vm = this;
+        var _self = this;
         var files = event.target.files; // FileList object
         // console.log(files);
-
         // Loop through the FileList and render image files as thumbnails.
         for (var i = 0, f; f = files[i]; i++) {
             // console.log(f);
@@ -70,14 +69,12 @@ ModalComponent = React.createClass({
                 event.preventDefault();
                 continue;
             }
-
             var reader = new FileReader();
-
             // Closure to capture the file information.
             reader.onload = function (e) {
                 // // console.log(e);
                 // // console.log(reader.result);
-                vm.generateImage(reader.result);
+                _self.generateImage(reader.result);
             }
 
             // Read in the image file as a data URL.
@@ -86,8 +83,7 @@ ModalComponent = React.createClass({
     },
 
     generateImage(dataURL) {
-        console.log('generate image');
-        var vm = this;
+        var _self = this;
         var imageScale = 50;
         var imageHeight = 300;
         var imageWidth = 300;
@@ -99,11 +95,11 @@ ModalComponent = React.createClass({
         // load image from data url
         var imageObj = new Image();
         imageObj.onload = function (e) {
-            console.log(e);
+            // console.log(e);
             let canvas = document.getElementById('myCanvas');
             let context = canvas.getContext("2d");
             context.drawImage(this, 0, 0, imageWidth * (imageScale + threshold) / 100, imageHeight * (imageScale + threshold) / 100);
-            vm.setState({ foto: canvas.toDataURL() });
+            _self.setState({ foto: canvas.toDataURL() });
         };
         imageObj.src = dataURL;
     },
