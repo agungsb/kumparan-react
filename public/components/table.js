@@ -54,7 +54,7 @@ TableComponent = React.createClass({
             <tbody>
               {this.props.employeesData.map(function (row, index) {
                 var r = "";
-                console.log(count);
+                // console.log(count);
                 if(_self.state.keyword.length > 0){
                   var regex = new RegExp(_self.state.keyword, 'i');
                   var result = row.nama.search(regex);
