@@ -10,9 +10,8 @@ TableComponent = React.createClass({
   handleChange(e) {
     console.log(e);
   },
-  deleteRecords(){
-    
-    this.props.deleteRecords();
+  deleteRecords(){  
+    this.props.onDeleteRecords();
   },
   render: function () {
     let _self = this;
@@ -23,7 +22,6 @@ TableComponent = React.createClass({
             onClick={this.deleteRecords}
             className={this.props.deleteBtn}
             bsStyle="danger"
-            onClick={this.open}
             ><i className="glyphicon glyphicon-remove"></i>&nbsp; Hapus
           </Button>
         </div>
