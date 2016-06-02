@@ -38,7 +38,7 @@ TableComponent = React.createClass({
         <div className="col-xs-12 col-sm-6 col-md-6 col-md-offset-2">
           <div className="inner-addon right-addon">
             <i className="glyphicon glyphicon-search"></i>
-            <input onKeyUp={this.searchRecords} type="text" className="form-control" />
+            <input onKeyUp={this.searchRecords} type="text" className="form-control" placeholder="Cari karyawan berdasarkan nama.."/>
           </div>
         </div>
         <div className="col-xs-12 margin-top-10">
@@ -73,10 +73,10 @@ TableComponent = React.createClass({
                 return (
                   <tr key={row.id} className={r}>
                     <td className="hide">{row.id}</td>
-                    <td className="animated fadeIn" onClick={_self.handleClick}>{row.ssn}</td>
-                    <td className="animated fadeIn" onClick={_self.handleClick}>{row.nama}</td>
-                    <td className="animated fadeIn" onClick={_self.handleClick}>{row.email}</td>
-                    <td className="animated zoomIn" onClick={_self.handleClick}><img src={row.foto}/></td>
+                    <td onClick={_self.handleClick}>{row.ssn}</td>
+                    <td onClick={_self.handleClick}>{row.nama}</td>
+                    <td onClick={_self.handleClick}>{row.email}</td>
+                    <td onClick={_self.handleClick}><img src={row.foto}/></td>
                     <td onClick={_self.handleClick}><input type="checkbox" className="checker hide"/><i></i></td>
                   </tr>
                 );
@@ -84,7 +84,7 @@ TableComponent = React.createClass({
               }      
               <tr className={count === 0 ? "": "hide"}>
                 <td colSpan="6" className="animated fadeIn text-center">
-                  <h2>Maaf, pencarian tidak menemukan nama karyawan yang anda cari. </h2>
+                  <h2>Tidak ada data.</h2>
                 </td>
               </tr>
             </tbody>

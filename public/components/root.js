@@ -58,7 +58,7 @@ RootComponent = React.createClass({
         // Create an objectStore to hold information about our employees. We're
         // going to use "ssn" as our key path because it's guaranteed to be
         // unique - or at least that's what I was told during the kickoff meeting.
-        objectStore = db.createObjectStore(_self.state.objectStoreName, { keyPath: "id", autoIncrement: true });
+        objectStore = db.createObjectStore(_self.state.objectStoreName, { keyPath: "id", autoIncrement: false });
 
         // Create an index to search employees by name. We may have duplicates
         // so we can't use a unique index.
@@ -95,16 +95,16 @@ RootComponent = React.createClass({
       var objectStore = transaction.objectStore(this.state.objectStoreName);
       var ed = this.state.employeesData;
       objectStore.openCursor().onsuccess = function (event) {
-          console.log(event);
+          // console.log(event);
           var cursor = event.target.result;
           if (cursor) {
-              console.log(cursor.key);
+              // console.log(cursor.key);
               ed.push({ "id": cursor.key, "ssn": cursor.value.ssn, "nama": cursor.value.nama, "email": cursor.value.email, "foto": cursor.value.foto });
-              console.log("Name for ssn " + cursor.key + " is " + cursor.value.nama + ", Email: " + cursor.value.email);
+              // console.log("Name for ssn " + cursor.key + " is " + cursor.value.nama + ", Email: " + cursor.value.email);
               cursor.continue();
           }
-          console.log(ed.employeesData);
           _self.setState({employeesData: ed});
+          // console.log(_self.state.employeesData);
       }
   },
   onClickRow(td) {
@@ -140,18 +140,44 @@ RootComponent = React.createClass({
     // console.log(this.state.pointedArrSsn);
   },
   addRecord(data) {
-    var employeesData = this.state.employeesData;
-    var lastIndex = this.state.employeesData.length - 1;
-    employeesData.push({
-      "id": parseInt(this.state.employeesData[lastIndex].id) + 1,
-      "ssn": data.ssn,
-      "nama": data.nama,
-      "email": data.email,
-      "foto": data.foto
-    });
-    this.setState({ employeesData: employeesData });
+    var _self = this;
+    var db = this.state.db;
+    var ed = this.state.employeesData;
+    var transaction = db.transaction([this.state.objectStoreName], "readwrite");
+    transaction.oncomplete = function (event) {
+        // console.log(event);
+    }
+
+    transaction.onerror = function (event) {
+        console.log(event);
+        alert("Telah terjadi kesalahan");
+    }
+
+    var id = 0;
+    if(ed.length > 0){
+      id = ed[ed.length-1].id;
+    }
+    const nextId = parseInt(id) + 1;
+    data.id = nextId;
+    console.log(data);
+    var objectStore = transaction.objectStore(this.state.objectStoreName);
+    var request = objectStore.add(data);
+    request.onsuccess = function (event) {
+      var employee = {
+        "id": nextId,
+        "ssn": data.ssn,
+        "nama": data.nama,
+        "email": data.email,
+        "foto": data.foto
+      };
+      console.log(employee);
+      ed.push(employee);
+      _self.setState({ employeesData: ed });
+    }
   },
   deleteRecords() {
+    var _self = this;
+    var db = this.state.db;
     // It's important to descend array order first, so the rowIndex won't be screwed up
     var pas = this.state.pointedArrSsn;
     pas.sort(function (a, b) {
@@ -163,15 +189,32 @@ RootComponent = React.createClass({
     var _self = this;
     for(var i in pas){
       console.log(pas[i]);
+      var transaction = db.transaction([this.state.objectStoreName], "readwrite");
+      transaction.oncomplete = function (event) {
+          console.log(event);
+          // alert('All is done');
+      }
+
+      transaction.onerror = function (event) {
+          console.log(event);
+          alert("Telah terjadi kesalahan");
+      }
       var index = _self.functiontofindIndexByKeyValue(ed, "id", pas[i]);
       console.log(index);
-        ed.splice(index, 1);
+      var objectStore = transaction.objectStore(this.state.objectStoreName);
+      var request = objectStore.delete(pas[i]);
+      request.onsuccess = function (event) {
+          console.log(event);
+          ed.splice(index, 1);
+          pas.splice(i, 1);
+          _self.setState({employeesData: ed});
+      };
     };
-    console.log(ed);
-    console.log(pas);
+    // console.log(ed);
+    // console.log(pas);
     // Reset the variables;
-    this.setState({pointedArrSsn: []});
-    this.setState({employeesData: ed});
+    // this.setState({pointedArrSsn: []});
+    // this.setState({employeesData: ed});
   },
   functiontofindIndexByKeyValue(arraytosearch, key, valuetosearch) {
     for (var i = 0; i < arraytosearch.length; i++) {
@@ -218,19 +261,6 @@ RootComponent = React.createClass({
           deleteBtn={this.state.deleteBtn} 
           onClickRow={this.onClickRow} 
           employeesData={this.state.employeesData}/>
-          <table id="mainTable" className="table table-responsive table-hover table-bordered">
-            <thead>
-              <tr>
-                <th className="hide">Id</th>
-                <th>SSN</th>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>Foto</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="tbo"></tbody>
-          </table>
       </div>
     );
   }
