@@ -7,9 +7,6 @@ TableComponent = React.createClass({
     var td = e.target.parentElement;
     this.props.onClickRow(td);
   },
-  handleChange(e) {
-    console.log(e);
-  },
   deleteRecords(){  
     this.props.onDeleteRecords();
   },
