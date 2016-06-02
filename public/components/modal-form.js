@@ -1,5 +1,5 @@
-const Example = React.createClass({
-    
+ModalComponent = React.createClass({
+    displayName: "ModalComponent",
     componentDidMount() {
         
     },
@@ -112,7 +112,6 @@ const Example = React.createClass({
     },
 
     render() {
-        let hello = <Hello name="World"/>
         let popover = <Popover title="Standar" id="popover-modal">Ukuran 200x200 piksel</Popover>;
 
         return (
@@ -125,7 +124,6 @@ const Example = React.createClass({
                 </Button>
 
                 <Modal show={this.state.showModal} onHide={this.close}>
-                    <Hello name="Admin"/>
                     <Modal.Header closeButton>
                         <Modal.Title>Tambah Karyawan </Modal.Title>
                     </Modal.Header>
@@ -202,4 +200,4 @@ const Example = React.createClass({
     }
 });
 
-ReactDOM.render(<Example/>, document.getElementById('modalcomponent'));
+ReactDOM.render(<ModalComponent/>, document.getElementById('modalcomponent'));

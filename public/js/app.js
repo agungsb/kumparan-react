@@ -207,34 +207,34 @@ var pointedArrSsn = [];
 var checkedBoxes;
 
 $(document).on('click', 'table', function (e) {
-    console.log(customerData);
-    var td = e.target.parentElement;
-    var td_length = td.children.length;
-    var id = customerData[td.rowIndex - 1].id;
-    console.log(id);
-    var c = td.children[td_length - 1].children[0];
-    var icon = td.children[td_length - 1].children[1];
-    if (c.checked == false) {
-        c.checked = true;
-        icon.innerHTML = `<i class="text-primary glyphicon glyphicon-ok"></i>`;
-        pointedArrSsn.push({ "rowIndex": td.rowIndex, "id": parseInt(id) });
-    } else {
-        c.checked = false;
-        icon.innerHTML = `<i></i>`;
-        var loc = pointedArrSsn.map(function (d) { return d['id']; }).indexOf(id);
-        pointedArrSsn.splice(loc, 1);
-    }
-    checkedBoxes = getCheckedBoxes("mycheckboxes");
-    if (checkedBoxes != null) {
-        if (checkedBoxes.length > 0) {
-            $('#deleteBtn').show();
-        } else {
-            $('#deleteBtn').fadeOut();
-        }
-    } else {
-        $('#deleteBtn').fadeOut();
-    }
-    console.log(pointedArrSsn);
+    // console.log(customerData);
+    // var td = e.target.parentElement;
+    // var td_length = td.children.length;
+    // var id = customerData[td.rowIndex - 1].id;
+    // console.log(id);
+    // var c = td.children[td_length - 1].children[0];
+    // var icon = td.children[td_length - 1].children[1];
+    // if (c.checked == false) {
+    //     c.checked = true;
+    //     icon.innerHTML = `<i class="text-primary glyphicon glyphicon-ok"></i>`;
+    //     pointedArrSsn.push({ "rowIndex": td.rowIndex, "id": parseInt(id) });
+    // } else {
+    //     c.checked = false;
+    //     icon.innerHTML = `<i></i>`;
+    //     var loc = pointedArrSsn.map(function (d) { return d['id']; }).indexOf(id);
+    //     pointedArrSsn.splice(loc, 1);
+    // }
+    // checkedBoxes = getCheckedBoxes("mycheckboxes");
+    // if (checkedBoxes != null) {
+    //     if (checkedBoxes.length > 0) {
+    //         $('#deleteBtn').show();
+    //     } else {
+    //         $('#deleteBtn').fadeOut();
+    //     }
+    // } else {
+    //     $('#deleteBtn').fadeOut();
+    // }
+    // console.log(pointedArrSsn);
 });
 
 $(document).on('click', '#deleteBtn', function (e) {
