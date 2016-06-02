@@ -1,8 +1,12 @@
 RootComponent = React.createClass({
   displayName: 'RootComponent',
   componentDidMount() {
-    this.setState({temporaryData: this.state.employeesData});
-    console.log(this.state.employeesData);
+    var db;
+    if (!window.indexedDB) {
+        window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+    } else{
+      console.log("IndexedDB is possible");
+    }
   },
   getInitialState() {
     return {
@@ -10,7 +14,6 @@ RootComponent = React.createClass({
       pointedArrSsn: [],
       pointedId: null,
       checkedBoxes: null,
-      temporaryData: [],
       employeesData: [{
         "id": 1,
         "ssn": "1234",
@@ -75,7 +78,6 @@ RootComponent = React.createClass({
       "foto": data.foto
     });
     this.setState({ employeesData: employeesData });
-    alert('record successfully added!');
   },
   deleteRecords() {
     // It's important to descend array order first, so the rowIndex won't be screwed up

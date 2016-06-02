@@ -48,9 +48,7 @@ ModalComponent = React.createClass({
             alert("Mohon lengkapi form");
             return;
         } else {
-            var elements = ReactDOM.findDOMNode(this.refs.addform).elements;
-            console.log(elements);
-            let data = { "ssn": elements.ssn.value, "nama": elements.nama.value, "email": elements.email.value, "foto": elements.foto.value }
+            let data = { "ssn": this.state.ssn, "nama": this.state.nama, "email": this.state.email, "foto": this.state.foto }
             console.log(data);
             this.setState({ showModal: false, ssn: '', nama: '', email: '', foto: '', hide: 'hide' });
             this.onAddRecord(data);
@@ -89,7 +87,6 @@ ModalComponent = React.createClass({
 
     generateImage(dataURL) {
         console.log('generate image');
-        console.log(this.refs.myCanvas);
         var vm = this;
         var imageScale = 50;
         var imageHeight = 300;
@@ -131,7 +128,7 @@ ModalComponent = React.createClass({
                     <Modal.Header closeButton>
                         <Modal.Title>Tambah Karyawan </Modal.Title>
                     </Modal.Header>
-                    <form ref="addform" onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit}>
                         <Modal.Body>
                             <FormGroup controlId="ssn" validationState={this.getValidationState() }>
                                 <ControlLabel>SSN Karyawan</ControlLabel>
@@ -180,7 +177,7 @@ ModalComponent = React.createClass({
                                     />
                                 <FormControl.Feedback />
                                 <div id="canvasContainer" className={this.state.hide}>
-                                    <canvas ref="myCanvas" id="myCanvas"></canvas>
+                                    <canvas id="myCanvas"></canvas>
                                 </div>
                             </FormGroup>
                             <FormGroup controlId="foto">
