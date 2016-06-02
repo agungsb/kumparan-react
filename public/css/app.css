@@ -22,7 +22,7 @@
 .margin-top-10 { margin-top: 10px; }
 
 #canvasContainer{width: 200px; height:200px; margin: 0 auto;}
-#myCanvas{ width:200px; height:200px; border: 1px solid #5cb85c; margin-top:20px;}
+#myCanvas{ border: 1px solid #5cb85c; margin: 0 auto; margin-top:20px;}
 
 #foto{display:none;}
 

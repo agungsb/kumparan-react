@@ -84,13 +84,8 @@ ModalComponent = React.createClass({
 
     generateImage(dataURL) {
         var _self = this;
-        var imageScale = 50;
-        var imageHeight = 300;
-        var imageWidth = 300;
-        var threshold = 50;
-        var canvasWidth = 200;
-        var canvasHeight = 200;
-        var threshold = 50;
+        var imageHeight = 200;
+        var imageWidth = 200;
 
         // load image from data url
         var imageObj = new Image();
@@ -98,7 +93,7 @@ ModalComponent = React.createClass({
             // console.log(e);
             let canvas = document.getElementById('myCanvas');
             let context = canvas.getContext("2d");
-            context.drawImage(this, 0, 0, imageWidth * (imageScale + threshold) / 100, imageHeight * (imageScale + threshold) / 100);
+            context.drawImage(this, 0, 0, imageWidth, imageHeight);
             _self.setState({ foto: canvas.toDataURL() });
         };
         imageObj.src = dataURL;
@@ -173,7 +168,7 @@ ModalComponent = React.createClass({
                                     />
                                 <FormControl.Feedback />
                                 <div id="canvasContainer" className={this.state.hide}>
-                                    <canvas id="myCanvas"></canvas>
+                                    <canvas id="myCanvas" width="200" height="200"></canvas>
                                 </div>
                             </FormGroup>
                             <FormGroup controlId="foto">
