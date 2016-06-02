@@ -1,12 +1,8 @@
 RootComponent = React.createClass({
   displayName: 'RootComponent',
   componentDidMount() {
-    var db;
-    if (!window.indexedDB) {
-        window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
-    } else{
-      console.log("IndexedDB is possible");
-    }
+    this.setState({temporaryData: this.state.employeesData});
+    console.log(this.state.employeesData);
   },
   getInitialState() {
     return {
@@ -14,6 +10,7 @@ RootComponent = React.createClass({
       pointedArrSsn: [],
       pointedId: null,
       checkedBoxes: null,
+      temporaryData: [],
       employeesData: [{
         "id": 1,
         "ssn": "1234",
@@ -55,9 +52,9 @@ RootComponent = React.createClass({
       pas.splice(loc, 1);
       this.setState({pointedArrSsn: pas});
     }
-    checkedBoxes = getCheckedBoxes("mycheckboxes");
-    if (checkedBoxes != null) {
-        if (checkedBoxes.length > 0) {
+    this.state.checkedBoxes = this.getCheckedBoxes("mycheckboxes");
+    if (this.state.checkedBoxes != null) {
+        if (this.state.checkedBoxes.length > 0) {
             this.setState({deleteBtn: "animated zoomIn form-control"});
         } else {
             this.setState({deleteBtn: "animated zoomOut form-control"});
