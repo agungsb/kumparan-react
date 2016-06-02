@@ -1,7 +1,8 @@
 RootComponent = React.createClass({
   displayName: 'RootComponent',
-  componentDidMoun() {
-
+  componentDidMount() {
+    this.setState({temporaryData: this.state.employeesData});
+    console.log(this.state.employeesData);
   },
   getInitialState() {
     return {
@@ -9,6 +10,7 @@ RootComponent = React.createClass({
       pointedArrSsn: [],
       pointedId: null,
       checkedBoxes: null,
+      temporaryData: [],
       employeesData: [{
         "id": 1,
         "ssn": "1234",
@@ -118,14 +120,15 @@ RootComponent = React.createClass({
     // Return the array if it is non-empty, or null
     return checkboxesChecked.length > 0 ? checkboxesChecked : null;
   },
-  searchRecords(keyword){
-    console.log(keyword);
-    const regex = new RegExp(keyword, 'i');
-    const filtered = this.state.employeesData.filter(function(datum) {
-      var result = datum.nama.search(regex) > -1;
-      return result;
-    });
-    console.log(filtered);
+  filterData(keyword){
+      var regex = new RegExp(keyword, 'i');
+      const filtered = this.state.employeesData.filter(function(obj) {
+        return obj.nama.search(regex) > -1;
+      });
+      return filtered;
+  },
+  resetSearch(){
+      return this.state.temporaryData;
   },
   render() {
     return (
@@ -137,7 +140,10 @@ RootComponent = React.createClass({
           <ModalComponent onAddRecord={this.addRecord}/>
         </div>
           <TableComponent 
-          onSearchRecords={this.searchRecords}onDeleteRecords={this.deleteRecords} deleteBtn={this.state.deleteBtn} onClickRow={this.onClickRow} employeesData={this.state.employeesData}/>
+          onDeleteRecords={this.deleteRecords} 
+          deleteBtn={this.state.deleteBtn} 
+          onClickRow={this.onClickRow} 
+          employeesData={this.state.employeesData}/>
           <table id="mainTable" className="table table-responsive table-hover table-bordered">
             <thead>
               <tr>

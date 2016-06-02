@@ -1,5 +1,6 @@
 // Constant variables of ReactBootstrap
 const Alert = ReactBootstrap.Alert;
+const Navbar = ReactBootstrap.Navbar;
 const Modal = ReactBootstrap.Modal;
 const Popover = ReactBootstrap.Popover;
 const Tooltip = ReactBootstrap.Tooltip;
