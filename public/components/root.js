@@ -36,9 +36,11 @@ RootComponent = React.createClass({
     var _self = this;
     this.setState({temporaryData: this.state.employeesData});
     // console.log(this.state.employeesData);
-    var request = indexedDB.open(_self.state.dbName, 1);
+    var request = indexedDB.open(_self.state.dbName);
     request.onerror = function (event) {
     // Handle errors.
+    console.log(event);
+    alert('error');
     };
     request.onsuccess = function (event) {
         _self.setState({db: event.target.result});
