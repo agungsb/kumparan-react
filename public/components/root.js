@@ -5,7 +5,10 @@ RootComponent = React.createClass({
   },
   getInitialState() {
     return {
-      rows: [{
+      deleteBtn: 'hide',
+      pointedArrSsn: [],
+      checkedBoxes: null,
+      employeesData: [{
         "id": 0,
         "ssn": "1234",
         "nama": "Arkan",
@@ -23,53 +26,75 @@ RootComponent = React.createClass({
   onClickRow(td) {
     console.log(td.rowIndex);
     var td_length = td.children.length;
+    var id = this.state.employeesData[td.rowIndex - 1].id;
     var c = td.children[td_length - 1].children[0];
     var icon = td.children[td_length - 1].children[1];
     if (c.checked == false) {
       c.checked = true;
-      icon.innerHTML = `<i class="text-primary glyphicon glyphicon-ok"></i>`;
-      // pointedArrSsn.push({ "rowIndex": td.rowIndex, "id": parseInt(id) });
+      icon.innerHTML = `<i class="text-primary glyphicon glyphicon-ok"></i>`;   
+      var pas = this.state.pointedArrSsn;
+      pas.push({ "rowIndex": td.rowIndex, "id": parseInt(id) });
+      this.setState({pointedArrSsn: pas});
     } else {
       c.checked = false;
-      icon.innerHTML = `<i></i>`;
-      // var loc = pointedArrSsn.map(function (d) { return d['id']; }).indexOf(id);
-      // pointedArrSsn.splice(loc, 1);
+      icon.innerHTML = `<i></i>`; 
+      var pas = this.state.pointedArrSsn;
+      let loc = pas.map(function (d) { return d['id']; }).indexOf(id);
+      pas.splice(loc, 1);
+      this.setState({pointedArrSsn: pas});
     }
+    checkedBoxes = getCheckedBoxes("mycheckboxes");
+    if (checkedBoxes != null) {
+        if (checkedBoxes.length > 0) {
+            this.setState({deleteBtn: "animated zoomIn form-control"});
+        } else {
+            this.setState({deleteBtn: "animated zoomOut form-control"});
+        }
+    } else {
+            this.setState({deleteBtn: "animated zoomOut form-control"});
+    }
+    console.log(this.state.pointedArrSsn);
   },
-  addRecord() {
-    var rows = this.state.rows;
-    rows.push({
-      "id": 2,
-      "Name": "Agung",
-      "Age": "28"
+  addRecord(data) {
+    var employeesData = this.state.employeesData;
+    var lastIndex = this.state.employeesData.length - 1;
+    employeesData.push({
+      "id": parseInt(this.state.employeesData[lastIndex].id) + 1,
+      "ssn": data.ssn,
+      "nama": data.nama,
+      "email": data.email,
+      "foto": data.foto
     });
-    this.setState({ rows: rows });
+    this.setState({ employeesData: employeesData });
+    alert('record successfully added!');
   },
-  updateRow() {
-    console.log(this.state.rows);
-    this.setState({ rows: [{ "id": parseInt(this.state.rows[0].id) + 1, "Name": "Akbar", "Age": (parseInt(this.state.rows[0].Age) + 2) }] });
-    console.log(this.state);
+  deleteRecords(data) {
+    console.log(data);
+    alert('deleted');
+  },
+  getCheckedBoxes() {
+    var checkboxes = document.getElementsByClassName('checker');
+    var checkboxesChecked = [];
+    // loop over them all
+    for (var i = 0; i < checkboxes.length; i++) {
+        // And stick the checked ones onto an array...
+        if (checkboxes[i].checked) {
+            checkboxesChecked.push(checkboxes[i]);
+        }
+    }
+    // Return the array if it is non-empty, or null
+    return checkboxesChecked.length > 0 ? checkboxesChecked : null;
   },
   render() {
     return (
       <div>
         <div className="col-xs-12 text-center">
-          <h1>Employees Control {this.state.rows[0].Name}</h1>
-        </div>
-        <TableComponent onClickRow={this.onClickRow} rows={this.state.rows}/>
-        <div className="col-xs-12 col-sm-3 col-md-2">
-          <div id="modalcomponent"></div>
+          <h1>Employees Control</h1>
         </div>
         <div className="col-xs-12 col-sm-3 col-md-2">
-          <button id="deleteBtn" className="btn btn-danger form-control"><i className="glyphicon glyphicon-remove"></i>&nbsp; Hapus</button>
+          <ModalComponent onAddRecord={this.addRecord}/>
         </div>
-        <div className="col-xs-12 col-sm-6 col-md-6 col-md-offset-2">
-          <div className="inner-addon right-addon">
-            <i className="glyphicon glyphicon-search"></i>
-            <input type="text" className="form-control" />
-          </div>
-        </div>
-        <div className="col-xs-12 margin-top-10">
+          <TableComponent onDeleteRecords={this.deleteRecords} deleteBtn={this.state.deleteBtn} onClickRow={this.onClickRow} employeesData={this.state.employeesData}/>
           <table id="mainTable" className="table table-responsive table-hover table-bordered">
             <thead>
               <tr>
@@ -83,7 +108,6 @@ RootComponent = React.createClass({
             </thead>
             <tbody id="tbo"></tbody>
           </table>
-        </div>
       </div>
     );
   }

@@ -102,10 +102,6 @@ var readRecord = function () {
     };
 }
 
-function tea(){
-    alert();
-}
-
 var addRecord = function (obj) {
     var transaction = db.transaction([objectStoreName], "readwrite");
     transaction.oncomplete = function (event) {
@@ -202,7 +198,6 @@ function functiontofindIndexByKeyValue(arraytosearch, key, valuetosearch) {
     return null;
 }
 
-var pointedSsn;
 var pointedArrSsn = [];
 var checkedBoxes;
 

@@ -1,7 +1,7 @@
 ModalComponent = React.createClass({
     displayName: "ModalComponent",
     componentDidMount() {
-        
+
     },
 
     getInitialState() {
@@ -44,7 +44,6 @@ ModalComponent = React.createClass({
 
     handleSubmit(e) {
         e.preventDefault();
-        window.tea();
         if ((this.state.ssn.length != 4) || (this.state.nama == '') || (this.state.email == '') || (this.state.foto == '')) {
             alert("Mohon lengkapi form");
             return;
@@ -54,6 +53,7 @@ ModalComponent = React.createClass({
             let data = { "ssn": elements.ssn.value, "nama": elements.nama.value, "email": elements.email.value, "foto": elements.foto.value }
             console.log(data);
             this.setState({ showModal: false, ssn: '', nama: '', email: '', foto: '', hide: 'hide' });
+            this.onAddRecord(data);
         }
     },
 
@@ -109,6 +109,10 @@ ModalComponent = React.createClass({
             vm.setState({ foto: canvas.toDataURL() });
         };
         imageObj.src = dataURL;
+    },
+
+    onAddRecord(data) {
+        this.props.onAddRecord(data);
     },
 
     render() {
@@ -200,4 +204,4 @@ ModalComponent = React.createClass({
     }
 });
 
-ReactDOM.render(<ModalComponent/>, document.getElementById('modalcomponent'));
+// ReactDOM.render(<ModalComponent/>, document.getElementById('modalcomponent'));
