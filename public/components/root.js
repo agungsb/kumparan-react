@@ -158,6 +158,7 @@ RootComponent = React.createClass({
   },
   deleteRecords() {
     var _self = this;
+    this.setState({deleteBtn: 'hide'});
     var db = this.state.db;
     // It's important to descend array order first, so the rowIndex won't be screwed up
     var pas = this.state.pointedArrSsn;
